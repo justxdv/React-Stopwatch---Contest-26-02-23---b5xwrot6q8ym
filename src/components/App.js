@@ -9,11 +9,12 @@ const App = () => {
   const [isRunning, setIsRunning] = useState(false);
 
   const formatTime = (time) => {
-    const ms = Math.floor((time % 1000) / 10);
-    const s = Math.floor((time / 1000) % 60);
-    const m = Math.floor((time / 1000 / 60) % 60);
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
-  };
+  const ms = Math.floor(time % 1000);
+  const s = Math.floor(time / 1000);
+  return `${s}.${ms.toString().padStart(3, '0')}`;
+};
+
+
 
   const handleStart = () => {
     if (!isRunning) {
@@ -47,10 +48,10 @@ const App = () => {
       <section>
         <h1 className='seconds-elapsed'>{formatTime(currentTime)}</h1>
         <section className='buttons'>
-          {!isRunning && <button className="start-btn" onClick={handleStart}>START</button>}
-          {isRunning && <button className="stop-btn" onClick={handleStop}>STOP</button>}
-          {isRunning && <button className="lap-btn" onClick={handleLap}>LAP</button>}
-          <button className="reset-btn" onClick={handleReset}>RESET</button>
+          <button className="start-btn" onClick={handleStart} >START</button>
+          <button className="stop-btn" onClick={handleStop} >STOP</button>
+          <button className="lap-btn" onClick={handleLap} >LAP</button>
+          <button className="reset-btn" onClick={handleReset} >RESET</button>
         </section>
       </section>
       {laps.length > 0 && (
@@ -58,7 +59,7 @@ const App = () => {
           <h2>Laps</h2>
           <section className='laps'>
             {laps.map((lapTime, index) => (
-              <p key={index}>Lap {index + 1}: {formatTime(lapTime)}</p>
+              <p key={index}>{formatTime(lapTime)}</p>
             ))}
           </section>
         </section>
@@ -68,3 +69,4 @@ const App = () => {
 };
 
 export default App;
+
